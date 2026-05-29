@@ -21,6 +21,9 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 # Enable rewrite module
 RUN a2enmod rewrite
 
+# Suppress AH00558 warning
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 # Copy application code from builder
 COPY --from=builder /app /var/www/html
 
