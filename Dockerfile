@@ -1,41 +1,43 @@
 # Dockerfile for Agora Menu project (Railway deployment)
 
 # ---------- Builder stage ----------
-# Use a lightweight Node image to compile Tailwind CSS assets
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Install Node dependencies (package.json should exist)
 COPY package*.json ./
 RUN npm ci
 
-# Copy the rest of the source code
 COPY . ./
 
-# Build Tailwind CSS (adjust paths if needed)
+# Build Tailwind CSS
 RUN npx tailwindcss -i ./src/input.css -o ./public/css/tailwind.css --minify
 
 # ---------- Runtime stage ----------
-# Use the official PHP Apache image
 FROM php:8.2-apache
 
-# Install required PHP extensions and enable Apache rewrite module
-RUN a2dismod -f mpm_event mpm_worker && a2enmod mpm_prefork && docker-php-ext-install mysqli pdo pdo_mysql && a2enmod rewrite
+# 1. Disable ALL MPMs first (ignore errors if module is not loaded)
+RUN a2dismod mpm_event 2>/dev/null; \
+    a2dismod mpm_worker 2>/dev/null; \
+    a2dismod mpm_prefork 2>/dev/null; \
+    true
 
-# Set the document root to the project directory
-ENV APACHE_DOCUMENT_ROOT /var/www/html
+# 2. Enable ONLY mpm_prefork (required by mod_php)
+RUN a2enmod mpm_prefork
 
-# Copy compiled assets and application code from the builder stage
+# 3. Enable rewrite module
+RUN a2enmod rewrite
+
+# 4. Install required PHP extensions
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+# 5. Copy application code from builder
 COPY --from=builder /app /var/www/html
 
-# Copy custom Apache vhost configuration to avoid AH00534
+# 6. Copy Apache vhost configuration
 COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 
-# Ensure proper permissions for the web root
+# 7. Set permissions
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
-# Expose the default web port
 EXPOSE 80
-
-# Default command to run Apache in foreground
 CMD ["apache2-foreground"]
