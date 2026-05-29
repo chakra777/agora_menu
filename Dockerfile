@@ -20,7 +20,7 @@ RUN npx tailwindcss -i ./src/input.css -o ./public/css/tailwind.css --minify
 FROM php:8.2-apache
 
 # Install required PHP extensions and enable Apache rewrite module
-RUN docker-php-ext-install mysqli pdo pdo_mysql && a2enmod rewrite
+RUN a2dismod -f mpm_event mpm_worker && a2enmod mpm_prefork && docker-php-ext-install mysqli pdo pdo_mysql && a2enmod rewrite
 
 # Set the document root to the project directory
 ENV APACHE_DOCUMENT_ROOT /var/www/html
