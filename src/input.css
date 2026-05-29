@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@source "../index.php";
+
+@theme {
+  --color-agora-50: #faf6f1;
+  --color-agora-100: #f0e6d8;
+  --color-agora-200: #e0cdb0;
+  --color-agora-300: #c9a97a;
+  --color-agora-400: #b08850;
+  --color-agora-500: #8b6914;
+  --color-agora-600: #6b4f10;
+  --color-agora-700: #4a3610;
+  --color-agora-800: #352610;
+  --color-agora-900: #1f1609;
+}

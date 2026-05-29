@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect fill="#e8f4f8" width="800" height="600"/>
+  <path d="M340 420 L340 220 L460 220 L480 420 Z" fill="#65a8c9" opacity="0.6"/>
+  <ellipse cx="400" cy="220" rx="70" ry="18" fill="#4a8aaa" opacity="0.5"/>
+  <circle cx="400" cy="320" r="40" fill="#90cce8" opacity="0.5"/>
+  <text x="400" y="500" text-anchor="middle" font-family="system-ui,sans-serif" font-size="26" fill="#2a5060">Bebida</text>
+</svg>

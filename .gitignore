@@ -1,0 +1,5 @@
+node_modules/
+assets/*.jpg
+assets/*.png
+assets/*.jpeg
+assets/*.webp

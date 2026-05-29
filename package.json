@@ -1,0 +1,13 @@
+{
+  "name": "agora_menu",
+  "version": "1.0.0",
+  "description": "Menú público Cafetería AGORA",
+  "scripts": {
+    "build-css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css",
+    "watch-css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
+  }
+}

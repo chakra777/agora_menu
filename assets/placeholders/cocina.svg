@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect fill="#f0e6d8" width="800" height="600"/>
+  <ellipse cx="400" cy="300" rx="140" ry="90" fill="#c9a97a" opacity="0.5"/>
+  <path d="M280 300 Q400 180 520 300" fill="none" stroke="#6b4f10" stroke-width="8" opacity="0.4"/>
+  <text x="400" y="480" text-anchor="middle" font-family="system-ui,sans-serif" font-size="26" fill="#4a3610">Cocina</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect fill="#e0cdb0" width="800" height="600"/>
+  <circle cx="400" cy="260" r="72" fill="#c9a97a" opacity="0.6"/>
+  <rect x="320" y="340" width="160" height="20" rx="10" fill="#8b6914" opacity="0.35"/>
+  <text x="400" y="480" text-anchor="middle" font-family="system-ui,sans-serif" font-size="28" fill="#4a3610">AGORA</text>
+</svg>

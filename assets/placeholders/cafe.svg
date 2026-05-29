@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect fill="#352610" width="800" height="600"/>
+  <rect x="300" y="200" width="200" height="140" rx="12" fill="#6b4f10"/>
+  <rect x="320" y="180" width="160" height="30" rx="8" fill="#8b6914"/>
+  <ellipse cx="400" cy="270" rx="70" ry="25" fill="#c9a97a" opacity="0.7"/>
+  <text x="400" y="480" text-anchor="middle" font-family="system-ui,sans-serif" font-size="26" fill="#f0e6d8">Café</text>
+</svg>

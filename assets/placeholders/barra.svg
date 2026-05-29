@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect fill="#f5ebe0" width="800" height="600"/>
+  <circle cx="400" cy="290" r="100" fill="#f8d4a8" opacity="0.8"/>
+  <circle cx="400" cy="290" r="60" fill="#e8b87a" opacity="0.6"/>
+  <text x="400" y="480" text-anchor="middle" font-family="system-ui,sans-serif" font-size="26" fill="#4a3610">Barra</text>
+</svg>
