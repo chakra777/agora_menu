@@ -1,5 +1,40 @@
+# .gitignore for Agora Menu PHP project
+# Dependency directories
 node_modules/
-assets/*.jpg
-assets/*.png
-assets/*.jpeg
-assets/*.webp
+vendor/
+
+# Build output
+public/dist/
+public/css/
+public/js/
+
+# Environment files
+.env
+.env.local
+*.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# PHP logs
+*.log
+
+# IDE / editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Runtime files
+tmp/
+cache/
+
+# Database dumps
+*.sql
+
+# Railway configuration (generated)
+.railway/
+
+# Sensitive configuration files (add if present)
+config/conexion.php
