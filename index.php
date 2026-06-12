@@ -396,6 +396,7 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <button onclick="abrirModalProducto('edit', ${prod.ID_PROD})" class="text-agora-600 hover:text-agora-900 font-medium text-sm transition-colors mr-2">Editar</button>
+                            <button onclick="eliminarProducto(${prod.ID_PROD})" class="text-agora-400 hover:text-agora-600 hover:bg-agora-50 font-medium text-sm transition-colors">Eliminar</button>
                         </td>
                     `;
                     tbody.appendChild(tr);
@@ -505,6 +506,29 @@
             } catch (err) {
                 formError.textContent = 'Error de conexión al guardar el producto.';
                 formError.classList.remove('hidden');
+            }
+        }
+
+        async function eliminarProducto(id) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.')) {
+                return;
+            }
+
+            try {
+                const res = await fetch('api/eliminar_producto.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_prod: id })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    cargarProductosAdmin();
+                } else {
+                    alert('Error al eliminar el producto: ' + (data.error || 'Error desconocido'));
+                }
+            } catch (err) {
+                alert('Error de conexión al eliminar el producto.');
             }
         }
 
