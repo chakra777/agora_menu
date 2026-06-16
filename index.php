@@ -27,22 +27,24 @@
                 <p class="px-2 py-2 text-xs uppercase tracking-wider text-agora-400 sidebar-text">Cargando…</p>
             </nav>
             <div class="p-4 border-t border-agora-700 flex flex-col space-y-2 shrink-0">
-                <button id="admin-btn" type="button" class="w-full text-left flex items-center px-3 py-2 text-sm font-medium rounded-md text-agora-300 hover:bg-agora-700 hover:text-white transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                    <span class="sidebar-text">Admin</span>
-                </button>
-                <p class="text-[10px] text-agora-400 sidebar-text text-center mt-1">Solo productos disponibles</p>
+                <p class="text-[10px] text-agora-400 sidebar-text text-center">Solo productos disponibles</p>
             </div>
         </aside>
 
         <main class="flex-1 flex flex-col min-w-0">
             <!-- 1. VISTA MENÚ PÚBLICO -->
             <div id="vista-menu" class="flex-1 flex flex-col min-w-0">
-                <header class="bg-white border-b border-agora-200 px-6 py-5 shadow-sm">
-                    <h1 id="titulo-categoria" class="text-2xl font-semibold text-agora-800">Menú</h1>
-                    <p class="text-sm text-agora-500 mt-1">Cafetería AGORA</p>
+                <header class="bg-white border-b border-agora-200 px-6 py-5 shadow-sm flex justify-between items-center">
+                    <div>
+                        <h1 id="titulo-categoria" class="text-2xl font-semibold text-agora-800">Menú</h1>
+                        <p class="text-sm text-agora-500 mt-1">Cafetería AGORA</p>
+                    </div>
+                    <button id="admin-btn" type="button" class="border border-agora-300 hover:bg-agora-50 text-agora-700 text-sm font-medium px-4 py-2 rounded-md shadow-sm transition-all flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                        <span>Admin</span>
+                    </button>
                 </header>
                 <div class="flex-1 p-6 overflow-y-auto">
                     <div id="estado-carga" class="text-center py-16 text-agora-500">
