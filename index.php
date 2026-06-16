@@ -132,6 +132,73 @@
         </main>
     </div>
 
+    <!-- BOTÓN FLOTANTE DEL CARRITO (visible solo en vista-menu) -->
+    <button id="carrito-fab" type="button"
+            class="hidden fixed bottom-6 right-6 z-40 bg-agora-600 hover:bg-agora-700 text-white rounded-full p-4 shadow-xl transition-all flex items-center justify-center group hover:scale-105"
+            aria-label="Ver pedido">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        <span id="carrito-badge"
+              class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center hidden border-2 border-white">0</span>
+    </button>
+
+    <!-- DRAWER LATERAL DEL CARRITO -->
+    <div id="carrito-panel" class="hidden fixed inset-0 z-50 flex">
+        <div id="carrito-backdrop" class="flex-1 bg-black/40 backdrop-blur-sm"></div>
+        <aside id="carrito-aside"
+               class="w-full max-w-sm bg-white shadow-2xl flex flex-col transform transition-transform duration-200 translate-x-full">
+            <header class="bg-agora-800 text-white px-5 py-4 flex justify-between items-center shrink-0">
+                <h2 class="text-lg font-semibold flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    Tu pedido
+                </h2>
+                <button id="carrito-cerrar" type="button" class="text-agora-200 hover:text-white p-1 rounded focus:outline-none" aria-label="Cerrar">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </header>
+            <div id="carrito-lista" class="flex-1 overflow-y-auto p-4 space-y-3">
+                <!-- Items renderizados dinámicamente -->
+            </div>
+            <footer class="border-t border-agora-200 p-4 bg-agora-50 shrink-0">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-sm text-agora-700">Total estimado</span>
+                    <span id="carrito-total" class="text-xl font-bold text-agora-800">$0.00</span>
+                </div>
+                <p class="text-[11px] text-agora-500 mb-3 text-center leading-snug">
+                    Este listado se entrega al mesero cuando atienda la mesa. No se procesa ningún cargo.
+                </p>
+                <button id="carrito-vaciar" type="button" class="w-full text-sm text-red-600 hover:bg-red-50 border border-red-200 rounded-md py-2 transition font-medium">
+                    Vaciar pedido
+                </button>
+            </footer>
+        </aside>
+    </div>
+
+    <!-- MODAL INFORMATIVO (aparece al agregar el primer producto) -->
+    <div id="aviso-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 border border-agora-200 animate-scale-up">
+            <div class="flex items-start gap-3 mb-3">
+                <div class="h-10 w-10 rounded-full bg-agora-100 text-agora-700 flex items-center justify-center shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-agora-900">Información</h3>
+            </div>
+            <p class="text-sm text-agora-700 leading-relaxed">
+                Al agregar productos estás armando un <strong>listado de productos a ordenar</strong>. Este será entregado al mesero cuando esté atendiendo la mesa. <strong>No</strong> es un pedido formal ni se procesará ningún cargo automáticamente.
+            </p>
+            <button id="aviso-entendido" type="button" class="mt-5 w-full bg-agora-600 hover:bg-agora-700 text-white font-medium py-2 rounded-md shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-agora-500">
+                Entendido
+            </button>
+        </div>
+    </div>
+
     <!-- MODAL PRODUCTO -->
     <div id="modal-producto" class="hidden fixed inset-0 z-50 overflow-y-auto flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm transition-opacity">
         <div class="bg-white rounded-xl shadow-xl border border-agora-200 w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden animate-scale-up">
@@ -631,7 +698,7 @@
                 const card = document.createElement('article');
                 card.className = 'bg-white rounded-lg shadow-md border border-agora-100 overflow-hidden hover:shadow-lg transition-shadow flex flex-col';
                 card.innerHTML = `
-                    <div class="aspect-[4/3] bg-agora-100 overflow-hidden shrink-0">
+                    <div class="relative aspect-[4/3] bg-agora-100 overflow-hidden shrink-0">
                         <img
                             src="${escapeHtml(imagen)}"
                             alt="${escapeHtml(producto.DESCRIP)}"
@@ -639,6 +706,16 @@
                             loading="lazy"
                             decoding="async"
                         />
+                        <button
+                            type="button"
+                            onclick="agregarAlCarrito(${Number(producto.ID_PROD)})"
+                            class="absolute bottom-2 right-2 bg-agora-600 hover:bg-agora-700 active:bg-agora-800 text-white rounded-full h-9 w-9 flex items-center justify-center shadow-lg transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-agora-500 focus:ring-offset-2"
+                            aria-label="Agregar ${escapeHtml(producto.DESCRIP)} al pedido"
+                            title="Agregar al pedido">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+                            </svg>
+                        </button>
                     </div>
                     <div class="p-4 flex flex-col flex-1">
                         <h2 class="text-lg font-medium text-agora-900 leading-snug">${escapeHtml(producto.DESCRIP)}</h2>
@@ -730,6 +807,165 @@
             collapseBtn.querySelector('svg').classList.toggle('rotate-180');
             sidebarTexts.forEach((text) => text.classList.toggle('hidden'));
         });
+
+        // ============== CARRITO DE PEDIDOS ==============
+        const carritoFab      = document.getElementById('carrito-fab');
+        const carritoBadge    = document.getElementById('carrito-badge');
+        const carritoPanel    = document.getElementById('carrito-panel');
+        const carritoAside    = document.getElementById('carrito-aside');
+        const carritoBackdrop = document.getElementById('carrito-backdrop');
+        const carritoCerrar   = document.getElementById('carrito-cerrar');
+        const carritoLista    = document.getElementById('carrito-lista');
+        const carritoTotal    = document.getElementById('carrito-total');
+        const carritoVaciar   = document.getElementById('carrito-vaciar');
+        const avisoModal      = document.getElementById('aviso-modal');
+        const avisoEntendido  = document.getElementById('aviso-entendido');
+
+        const STORAGE_KEY = 'agora_carrito_v1';
+
+        function cargarCarrito() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function guardarCarrito(c) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(c));
+            } catch (e) {
+                // localStorage lleno o deshabilitado: no es crítico, sigue en memoria
+            }
+        }
+
+        let carrito = cargarCarrito();
+
+        function agregarAlCarrito(idProd) {
+            const categoriaActual = menuData.categorias.find(c => c.nombre === categoriaActiva);
+            if (!categoriaActual) return;
+            const producto = categoriaActual.productos.find(p => Number(p.ID_PROD) === Number(idProd));
+            if (!producto) return;
+
+            const estabaVacio = carrito.length === 0;
+            const existente = carrito.find(i => Number(i.id) === Number(idProd));
+            if (existente) {
+                existente.cantidad += 1;
+            } else {
+                carrito.push({
+                    id: Number(producto.ID_PROD),
+                    descrip: producto.DESCRIP,
+                    costo: Number(producto.COSTO),
+                    cantidad: 1
+                });
+            }
+            guardarCarrito(carrito);
+            renderCarrito();
+            mostrarFab();
+
+            if (estabaVacio) {
+                avisoModal.classList.remove('hidden');
+                avisoModal.classList.add('flex');
+            }
+        }
+
+        function cambiarCantidad(idProd, delta) {
+            const item = carrito.find(i => Number(i.id) === Number(idProd));
+            if (!item) return;
+            item.cantidad += delta;
+            if (item.cantidad <= 0) {
+                carrito = carrito.filter(i => Number(i.id) !== Number(idProd));
+            }
+            guardarCarrito(carrito);
+            renderCarrito();
+            mostrarFab();
+        }
+
+        function vaciarCarrito() {
+            if (carrito.length === 0) return;
+            if (!confirm('¿Vaciar el pedido completo?')) return;
+            carrito = [];
+            guardarCarrito(carrito);
+            renderCarrito();
+            mostrarFab();
+        }
+
+        function renderCarrito() {
+            carritoLista.innerHTML = '';
+            if (carrito.length === 0) {
+                carritoLista.innerHTML =
+                    '<p class="text-center text-agora-500 text-sm py-8">'
+                    + 'Aún no has agregado productos.</p>';
+                carritoTotal.textContent = formatoPrecio.format(0);
+                return;
+            }
+            let total = 0;
+            carrito.forEach(item => {
+                const subtotal = item.costo * item.cantidad;
+                total += subtotal;
+                const row = document.createElement('div');
+                row.className = 'flex items-center gap-3 border border-agora-200 rounded-lg p-2 bg-white';
+                row.innerHTML = `
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-agora-900 truncate">${escapeHtml(item.descrip)}</p>
+                        <p class="text-xs text-agora-500">${formatoPrecio.format(item.costo)} c/u</p>
+                    </div>
+                    <div class="flex items-center gap-1 shrink-0">
+                        <button type="button" onclick="cambiarCantidad(${item.id}, -1)"
+                                class="h-7 w-7 rounded bg-agora-100 hover:bg-agora-200 text-agora-800 font-bold flex items-center justify-center transition"
+                                aria-label="Disminuir cantidad">−</button>
+                        <span class="w-6 text-center text-sm font-semibold text-agora-900">${item.cantidad}</span>
+                        <button type="button" onclick="cambiarCantidad(${item.id}, 1)"
+                                class="h-7 w-7 rounded bg-agora-600 hover:bg-agora-700 text-white font-bold flex items-center justify-center transition"
+                                aria-label="Aumentar cantidad">+</button>
+                    </div>
+                `;
+                carritoLista.appendChild(row);
+            });
+            carritoTotal.textContent = formatoPrecio.format(total);
+        }
+
+        function mostrarFab() {
+            const totalItems = carrito.reduce((s, i) => s + i.cantidad, 0);
+            if (totalItems > 0) {
+                carritoFab.classList.remove('hidden');
+                carritoBadge.textContent = totalItems;
+                carritoBadge.classList.remove('hidden');
+            } else {
+                carritoFab.classList.add('hidden');
+                carritoBadge.classList.add('hidden');
+            }
+        }
+
+        function abrirCarrito() {
+            carritoPanel.classList.remove('hidden');
+            carritoPanel.classList.add('flex');
+            requestAnimationFrame(() => carritoAside.classList.remove('translate-x-full'));
+        }
+
+        function cerrarCarrito() {
+            carritoAside.classList.add('translate-x-full');
+            setTimeout(() => {
+                carritoPanel.classList.add('hidden');
+                carritoPanel.classList.remove('flex');
+            }, 200);
+        }
+
+        carritoFab.addEventListener('click', abrirCarrito);
+        carritoCerrar.addEventListener('click', cerrarCarrito);
+        carritoBackdrop.addEventListener('click', cerrarCarrito);
+        carritoVaciar.addEventListener('click', vaciarCarrito);
+        avisoEntendido.addEventListener('click', () => {
+            avisoModal.classList.add('hidden');
+            avisoModal.classList.remove('flex');
+            abrirCarrito();
+        });
+
+        // Inicializar carrito al cargar la página
+        renderCarrito();
+        mostrarFab();
 
         cargarMenu();
     </script>
